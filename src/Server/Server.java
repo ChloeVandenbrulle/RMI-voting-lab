@@ -15,7 +15,7 @@ public class Server {
 
         Registry rmiServer = LocateRegistry.createRegistry(2001);
 
-        Naming.rebind("rmi://localhost::2001/MyObj", object);
+        Naming.rebind("rmi://localhost:2001/MyObj", object);
     }
 
 

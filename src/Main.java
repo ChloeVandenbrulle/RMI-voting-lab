@@ -10,7 +10,7 @@ public class Main {
         System.out.println("Hello world!");
         Candidate candidate = new Candidate(1, "Robert", "Hello");
         System.out.println(candidate);
-        AuthenticationManager authenticationManager = new AuthenticationManager();
-        System.out.println(authenticationManager.authenticate(1, "password2"));
+        //AuthenticationManager authenticationManager = new AuthenticationManager();
+        //System.out.println(authenticationManager.authenticate(1, "password2"));
     }
 }

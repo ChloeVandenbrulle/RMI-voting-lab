@@ -8,30 +8,30 @@ public class VoteRecord implements Serializable {
     // Represents a record of users votes, including the candidates voted for
     private static final long serialVersionUID = 1L; //Nécessaire pour la sérialisation
     private int studentNumber;
-    private Map<Integer, Integer> votes;    // Map<Rank, candidateNumber>
+    private Map<Integer, Integer> vote;    // Map<Rank, candidateNumber>
 
     public VoteRecord(int studentNumber) {
         this.studentNumber = studentNumber;
-        this.votes = new HashMap<>();
+        this.vote = new HashMap<>();
     }
 
     public void addVote(int rank, int candidateNumber){
-        votes.put(rank, candidateNumber);
+        vote.put(rank, candidateNumber);
     }
 
     public int getStudentNumber() {
         return studentNumber;
     }
 
-    public Map<Integer, Integer> getVotes() {
-        return votes;
+    public Map<Integer, Integer> getVote() {
+        return vote;
     }
 
     @Override
     public String toString() {
         return "VoteRecord{" +
                 "studentNumber=" + studentNumber +
-                ", votes=" + votes +
+                ", vote=" + vote +
                 '}';
     }
 }

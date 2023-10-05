@@ -24,7 +24,12 @@ public class Client {
 
             Distant client = (Distant) Naming.lookup("rmi://localhost:2001/MyObj");
             if (client.authenticationManager(studentNumber, password)){
-                System.out.println("Vous êtes identifiés !");
+                System.out.println("Vous êtes identifié !");
+                System.out.println(client.canVote(studentNumber));
+                System.out.println(client.sendOTP(studentNumber));
+                System.out.println(client.sendCandidates(studentNumber));
+
+
             } else {
                 System.out.println("Erreur lors de l'identification. \nVotre numéro étudiant ou votre mot de passe est incorect.");
             }

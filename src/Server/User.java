@@ -6,10 +6,14 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L; //Nécessaire pour la sérialisation
     private int studentNumber;
     private String password;
+    private boolean hasVoted;
+    private int OTP;
 
     public User(int studentNumber, String password) {
         this.studentNumber = studentNumber;
         this.password = password;
+        hasVoted = false;
+        OTP = -1;
     }
 
     public int getStudentNumber() {
@@ -26,6 +30,22 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isHasVoted() {
+        return hasVoted;
+    }
+
+    public void setHasVoted(boolean hasVoted) {
+        this.hasVoted = hasVoted;
+    }
+
+    public int getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(int OTP) {
+        this.OTP = OTP;
     }
 
     @Override

@@ -53,6 +53,7 @@ public class User implements Serializable {
         return "User{" +
                 "studentNumber=" + studentNumber +
                 ", password='" + password + '\'' +
+                ", otp= " + OTP +
                 '}';
     }
 }

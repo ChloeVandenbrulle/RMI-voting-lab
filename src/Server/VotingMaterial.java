@@ -8,12 +8,11 @@ import java.util.Random;
 public class VotingMaterial implements Serializable {
     private static final long serialVersionUID = 1L; //Nécessaire pour la sérialisation
     private List<Candidate> candidates;
-    private List<User> usersWithoutOTP;
+    private List<User> users;
 
     public VotingMaterial(DataStorage dataStorage, int studentNumber) {
         this.candidates = dataStorage.getAllCandidates();
-        usersWithoutOTP = dataStorage.getAllUsers();
-
+        users = dataStorage.getAllUsers();
     }
 
     public List<Candidate> getCandidates() {
@@ -24,12 +23,12 @@ public class VotingMaterial implements Serializable {
         this.candidates = candidates;
     }
 
-    public List<User> getUsersWithoutOTP() {
-        return usersWithoutOTP;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUsersWithoutOTP(List<User> usersWithoutOTP) {
-        this.usersWithoutOTP = usersWithoutOTP;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public void generateOTP(User user) {
@@ -46,4 +45,5 @@ public class VotingMaterial implements Serializable {
         }
         return phrase;
     }
+
 }

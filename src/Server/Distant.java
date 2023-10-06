@@ -10,4 +10,8 @@ public interface Distant extends Remote {
     boolean canVote(int studentNumber) throws RemoteException;
     int sendOTP(int studentNumber) throws RemoteException;
     String sendCandidates(int studentNumber) throws RemoteException;
+    void retrieveVote(VoteRecord voteRecord, int studentNumber) throws RemoteException;
+    void getResult() throws RemoteException;
+    void setUserForRevote(int studentNumber) throws RemoteException;
+    int getOTPUser(int studentNumber) throws RemoteException;
 }

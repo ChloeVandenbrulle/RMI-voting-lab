@@ -4,13 +4,14 @@ import Server.Candidate;
 import Server.User;
 
 import java.rmi.RemoteException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws RemoteException {
-        System.out.println("Hello world!");
-        Candidate candidate = new Candidate(1, "Robert", "Hello");
-        System.out.println(candidate);
-        //AuthenticationManager authenticationManager = new AuthenticationManager();
-        //System.out.println(authenticationManager.authenticate(1, "password2"));
+        Scanner scanner= new Scanner(System.in);
+        System.out.println("Pour lancer le serveur, entrez \"start\"");
+        String start = scanner.nextLine();
+        if ("start".equalsIgnoreCase(start)){
+        }
     }
 }

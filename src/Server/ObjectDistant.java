@@ -1,7 +1,5 @@
 package Server;
 
-import Client.Authentication;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -28,12 +26,12 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
     public int sendOTP(int studentNumber) throws RemoteException{
         User userCurrent = null;
         VotingMaterial votingMaterial = new VotingMaterial(dataStorage, studentNumber);
-        for (User user: votingMaterial.getUsersWithoutOTP()){
+        for (User user: votingMaterial.getUsers()){
             if (studentNumber==user.getStudentNumber() && user.getOTP()==-1){
                 votingMaterial.generateOTP(user);
                 userCurrent = user;
+                break;
             }
-            break;
         }
         return userCurrent.getOTP();
     }
@@ -44,4 +42,35 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
         return votingMaterial.displayCandidates();
     }
 
+    @Override
+    public void retrieveVote(VoteRecord voteRecord, int studentNumber) throws RemoteException {
+        dataStorage.addVoteRecord(studentNumber,voteRecord);
+        System.out.println(dataStorage.getVoteRecords());
+
+        for (User user: dataStorage.getAllUsers()){
+            if (user.getStudentNumber()==studentNumber){
+                user.setHasVoted(true);
+            }
+        }
+
+    }
+
+    @Override
+    public void getResult() throws RemoteException{
+        dataStorage.calculateResults();
+        dataStorage.printResults();
+    }
+
+    @Override
+    public void setUserForRevote(int studentNumber) throws RemoteException {
+        VotingManager votingManager = new VotingManager(dataStorage);
+        User user = votingManager.setVoteForRevote(studentNumber);
+        dataStorage.getUsers().put(studentNumber, user);
+    }
+
+    @Override
+    public int getOTPUser(int studentNumber) throws RemoteException {
+        User user = dataStorage.getUser(studentNumber);
+        return user.getOTP();
+    }
 }

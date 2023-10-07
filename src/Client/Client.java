@@ -30,7 +30,7 @@ public class Client {
                     System.out.println("Vous avez déjà voté!");
                     System.out.println("Voulez-vous revoter ?");
                     String revoter = reader.readLine();
-                    if (revoter.toLowerCase()=="oui"){
+                    if (revoter.toLowerCase().equals("oui")){
                         client.setUserForRevote(studentNumber);
                     }
                 }

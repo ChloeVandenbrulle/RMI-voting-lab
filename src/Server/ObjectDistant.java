@@ -27,7 +27,7 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
         User userCurrent = null;
         VotingMaterial votingMaterial = new VotingMaterial(dataStorage, studentNumber);
         for (User user: votingMaterial.getUsers()){
-            if (studentNumber==user.getStudentNumber() && user.getOTP()==-1){
+            if (studentNumber==user.getStudentNumber()){
                 votingMaterial.generateOTP(user);
                 userCurrent = user;
                 break;

@@ -1,7 +1,5 @@
 package Client;
 
-import Server.User;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

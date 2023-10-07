@@ -1,8 +1,7 @@
 package Server;
 
-import Client.Vote;
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DataStorage {
     // Responsible for storing and managing user information, candidate information and vote records
@@ -14,35 +13,36 @@ public class DataStorage {
 
     public DataStorage() {
         candidates = new HashMap<>();
+        createCandidates();
         users = new HashMap<>();
+        createUsers();
         voteRecords = new HashMap<>();
-        User user = new User(1,"pass1");
-        users.put(user.getStudentNumber(), user);
-        User user2 = new User(2, "pass2");
+    }
+
+    public void createUsers(){
+        User user1 = new User(1,"Clervie Causer","causer");
+        users.put(user1.getStudentNumber(), user1);
+        User user2 = new User(2, "Chloé Vandenbrulle", "vandenbrulle");
         users.put(user2.getStudentNumber(), user2);
-        Candidate candidate1 = new Candidate(1,"Samy", "");
-        Candidate candidate2 = new Candidate(2, "Alice", "");
+        User user3 = new User(3, "Benjamin Vella", "vella");
+        users.put(user3.getStudentNumber(), user3);
+        User user4 = new User(4, "Françoise Baude", "baude");
+        users.put(user4.getStudentNumber(), user4);
+    }
+
+    public void createCandidates(){
+        Candidate candidate1 = new Candidate(1,"Samy", "Votez pour moi, je sais hacker!");
+        Candidate candidate2 = new Candidate(2, "Alice", "Je vous protégerai de Samy.");
+        Candidate candidate3 = new Candidate(3, "Bobby", "Je peux faire vos travaux de maison, je suis bricoleur.");
         candidates.put(candidate1.getCandidateNumber(), candidate1);
         candidates.put(candidate2.getCandidateNumber(), candidate2);
-    }
-
-    // Candidates
-    public void addCandidate(Candidate candidate){
-        candidates.put(candidate.getCandidateNumber(), candidate);
-    }
-
-    public Candidate getCandidate(int candidateNumber) {
-        return candidates.get(candidateNumber);
+        candidates.put(candidate3.getCandidateNumber(), candidate3);
     }
 
     public List<Candidate> getAllCandidates(){
         return new ArrayList<>(candidates.values());
     }
 
-    // Users
-    public void addUser(User user){
-        users.put(user.getStudentNumber(), user);
-    }
     public User getUser(int studentNumber) {
         return users.get(studentNumber);
     }
@@ -64,8 +64,9 @@ public class DataStorage {
         return new ArrayList<>(voteRecords.values()) ;
     }
 
-    public Map<Integer, VoteRecord> getVoteRecords() {
-        return  voteRecords;
+    public VoteRecord getVoteRecordofUser(int studentNumber) {
+        VoteRecord voteRecordUser = voteRecords.get(studentNumber);
+        return voteRecordUser;
     }
 
     public void calculateResults() {
@@ -79,12 +80,29 @@ public class DataStorage {
                 resultCandidates.merge(candidateNumber, rank, Integer::sum);
             });
         }
-
-        System.out.println(resultCandidates.toString());
         this.resultCandidates = resultCandidates;
     }
 
     public void printResults(){
-        resultCandidates.entrySet().stream().sorted(Map.Entry.<Integer,Integer>comparingByValue().reversed()).forEach(System.out::println);
+        System.out.println("Les résultats du vote sont :");
+        Map<Integer, Integer> sortedMap = resultCandidates.entrySet().stream().sorted(Map.Entry.<Integer,Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));;
+        for (Integer candidateNumber : sortedMap.keySet()){
+            String candidateName = candidates.get(candidateNumber).getName();
+            Integer totalVotes = sortedMap.get(candidateNumber);
+            System.out.println("Candidat " + candidateNumber + ": " + candidateName + " a eu un total de " + totalVotes + " voies.");
+        }
+    }
+
+    public String printResultsUser() {
+        String affichage = "Les résultats du vote sont :\n";
+        Map<Integer, Integer> sortedMap = resultCandidates.entrySet().stream().sorted(Map.Entry.<Integer,Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));;
+        for (Integer candidateNumber : sortedMap.keySet()){
+            String candidateName = candidates.get(candidateNumber).getName();
+            Integer totalVotes = sortedMap.get(candidateNumber);
+            affichage += "Candidat " + candidateNumber + ": " + candidateName + " a eu un total de " + totalVotes + " voies.\n";
+        }
+        return affichage;
     }
 }

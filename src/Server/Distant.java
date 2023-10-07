@@ -1,7 +1,5 @@
 package Server;
 
-import Client.Authentication;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -14,4 +12,7 @@ public interface Distant extends Remote {
     void getResult() throws RemoteException;
     void setUserForRevote(int studentNumber) throws RemoteException;
     int getOTPUser(int studentNumber) throws RemoteException;
+    void getNameUser(int studentNumber) throws RemoteException;
+    boolean isServerInReadOnlyMode() throws RemoteException;
+    String getResultUser() throws RemoteException;
 }

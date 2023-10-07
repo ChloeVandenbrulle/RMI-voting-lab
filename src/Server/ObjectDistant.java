@@ -5,9 +5,14 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ObjectDistant extends UnicastRemoteObject implements Distant {
     private DataStorage dataStorage;
+    private boolean isServerReadOnly = false;
     protected ObjectDistant(int port) throws RemoteException {
         super(port);
         dataStorage = new DataStorage();
+    }
+
+    public void setServerReadOnly(boolean serverReadOnly) {
+        isServerReadOnly = serverReadOnly;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
     @Override
     public void retrieveVote(VoteRecord voteRecord, int studentNumber) throws RemoteException {
         dataStorage.addVoteRecord(studentNumber,voteRecord);
-        System.out.println(dataStorage.getVoteRecords());
+        System.out.println(dataStorage.getVoteRecordofUser(studentNumber));
 
         for (User user: dataStorage.getAllUsers()){
             if (user.getStudentNumber()==studentNumber){
@@ -62,6 +67,11 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
     }
 
     @Override
+    public String getResultUser() throws RemoteException {
+        return dataStorage.printResultsUser();
+    }
+
+    @Override
     public void setUserForRevote(int studentNumber) throws RemoteException {
         VotingManager votingManager = new VotingManager(dataStorage);
         User user = votingManager.setVoteForRevote(studentNumber);
@@ -72,5 +82,16 @@ public class ObjectDistant extends UnicastRemoteObject implements Distant {
     public int getOTPUser(int studentNumber) throws RemoteException {
         User user = dataStorage.getUser(studentNumber);
         return user.getOTP();
+    }
+
+    @Override
+    public void getNameUser(int studentNumber) throws RemoteException {
+        User user = dataStorage.getUser(studentNumber);
+        System.out.println("Nom du votant : "+user.getName());
+    }
+
+    @Override
+    public boolean isServerInReadOnlyMode() throws RemoteException {
+        return isServerReadOnly;
     }
 }

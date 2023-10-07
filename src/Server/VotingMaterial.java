@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class VotingMaterial implements Serializable {
+    // Generates and sends the One Time Password and the candidates' information to users
     private static final long serialVersionUID = 1L; //Nécessaire pour la sérialisation
     private List<Candidate> candidates;
     private List<User> users;
@@ -15,20 +16,8 @@ public class VotingMaterial implements Serializable {
         users = dataStorage.getAllUsers();
     }
 
-    public List<Candidate> getCandidates() {
-        return candidates;
-    }
-
-    public void setCandidates(List<Candidate> candidates) {
-        this.candidates = candidates;
-    }
-
     public List<User> getUsers() {
         return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public void generateOTP(User user) {

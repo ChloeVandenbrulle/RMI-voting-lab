@@ -5,13 +5,15 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L; //Nécessaire pour la sérialisation
     private int studentNumber;
+    private String name;
     private String password;
     private boolean hasVoted;
     private int OTP;
 
-    public User(int studentNumber, String password) {
+    public User(int studentNumber, String name, String password) {
         this.studentNumber = studentNumber;
         this.password = password;
+        this.name = name;
         hasVoted = false;
         OTP = -1;
     }
@@ -28,8 +30,8 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getName() {
+        return name;
     }
 
     public boolean isHasVoted() {

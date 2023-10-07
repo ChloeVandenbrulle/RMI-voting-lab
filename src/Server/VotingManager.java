@@ -5,9 +5,8 @@ import Client.Vote;
 import java.util.*;
 
 public class VotingManager implements Vote {
-    // Manages the voting process
-    // Generates and sends One Time Password to users
-    private List<User> users = new ArrayList<>();
+    // Manages if the user can process to voting
+    private List<User> users;
 
     public VotingManager(DataStorage dataStorage) {
         users = dataStorage.getAllUsers();

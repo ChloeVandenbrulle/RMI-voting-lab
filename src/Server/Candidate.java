@@ -18,24 +18,8 @@ public class Candidate implements Serializable {
         return candidateNumber;
     }
 
-    public void setCandidateNumber(int candidateNumber) {
-        this.candidateNumber = candidateNumber;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPitch() {
-        return pitch;
-    }
-
-    public void setPitch(String pitch) {
-        this.pitch = pitch;
     }
 
     @Override
